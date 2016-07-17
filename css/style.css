@@ -44,3 +44,31 @@ footer > h4{
 h1,h2,h3,h4,h5,h6 {
 	font-family: 'Exo', sans-serif;
 }
+
+/*question area*/
+
+.question-contain{
+	margin: 0 auto;
+	width: 100%;
+}
+.question-area{
+	display: block;
+	margin: 0 auto;
+	width: 1020px;
+	height: 760px;
+	background-color: #0d1617;
+}
+
+
+/*Style of side container*/
+
+.correct-list{
+	display: block;
+	position: fixed;
+	top: 140px;
+	left: -25px;
+	width: 250px;
+	height: 450px;
+	z-index: 9999;
+	background-color: #000;
+}
