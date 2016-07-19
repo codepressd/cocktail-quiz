@@ -1,5 +1,5 @@
 var questId = 0;
-var answer = '';
+var correctAns = '';
 /*Log all five questions, answers and correct answers*/
 var allQuestions = [
 	{
@@ -43,21 +43,28 @@ $(document).ready(function(){
 
 /*Function that edits the DOM */
 function questSetup (){
-		answer = allQuestions[questId].answers;
+		correctAns = allQuestions[questId].correct;
+		var answer = allQuestions[questId].answers;
 		var question = allQuestions[questId].question;
 		$('.question > h2').text(question);
 		$('.one > h2').text(answer[0]);
 		$('.two > h2').text(answer[1]);
 		$('.three > h2').text(answer[2]);
+		$('.selected ').removeClass('selected');
 
 };
 
 /*Function that compares if a question is right*/
 function isCorrect(str){
-	if(str == )
-
+	if(str == correctAns){
+		return true;
+	}else{
+		return false;
+	}
 
 };
+/*Alert Function that lets everyone know your correct or not*/
+
 
 $('div.answers').on('click',function(){
 	$('.selected ').removeClass('selected');
@@ -66,7 +73,15 @@ $('div.answers').on('click',function(){
 
 $('.submit-answer').on('click', function(){
 	var questSelect = $('div.selected > h2').text();
-	alert(questSelect);
+	if(isCorrect(questSelect)){
+		$('.lightbox').css('display','block');
+		$('.lightbox > h1').text('Correct!');
+		setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
+	}else{
+		$('.lightbox').css('display','block');
+		$('.lightbox > h1').text('Wrong...');
+		setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
+	}
 	questId ++;
 	questSetup();
 });
