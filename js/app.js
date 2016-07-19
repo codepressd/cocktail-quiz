@@ -37,7 +37,7 @@ var allQuestions = [
 /*Function that loops through the object and gets the correct info*/
 $(document).ready(function(){
 	questSetup();
-	
+	getResultDiv(questId);
 
 });
 
@@ -63,6 +63,30 @@ function isCorrect(str){
 	}
 
 };
+
+/*Right or wrong question results */
+var questResultNum = '';
+
+function getResultDiv (num){
+	switch (num){
+		case 0:
+		questResultNum = '.quest1';
+		break;
+		case 1:
+		questResultNum = '.quest2';
+		break;
+		case 2:
+		questResultNum = '.quest3';
+		break;
+		case 3:
+		questResultNum = '.quest4';
+		break;
+		case 4:
+		questResultNum = '.quest5';
+		break;
+	}
+};
+
 /*Alert Function that lets everyone know your correct or not*/
 
 
@@ -75,13 +99,18 @@ $('.submit-answer').on('click', function(){
 	var questSelect = $('div.selected > h2').text();
 	if(isCorrect(questSelect)){
 		$('.lightbox').css('display','block');
+		$(questResultNum +'> span:first-child').css({'color':'green',
+			'opacity': '1.0'});
 		$('.lightbox > h1').text('Correct!');
 		setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
 	}else{
 		$('.lightbox').css('display','block');
+		$(questResultNum +'> span:last-child').css({'color':'red',
+			'opacity': '1.0'});
 		$('.lightbox > h1').text('Wrong...');
 		setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
 	}
 	questId ++;
+	getResultDiv(questId);
 	questSetup();
 });
