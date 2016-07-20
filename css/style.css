@@ -113,6 +113,9 @@ ul{
 	-ms-transform: scale(1.1);
 	transform: scale(1.1);
 }
+.restart-big{
+	padding-top: 25px;
+}
 
 /*Style of side container*/
 

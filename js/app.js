@@ -1,5 +1,6 @@
 var questId = 0;
 var correctAns = '';
+var answersCorrect = 0;
 /*Log all five questions, answers and correct answers*/
 var allQuestions = [
 	{
@@ -87,8 +88,25 @@ function getResultDiv (num){
 	}
 };
 
+/*Reset Function*/
+
+function quizReset(){
+	questId = 0;
+	correctAns = '';
+	answersCorrect = 0;
+	getResultDiv(questId);
+
+
+};
+
 /*Alert Function that lets everyone know your correct or not*/
 
+$('h3.restart').on('click', function(){
+	quizReset();
+	$('span.icons').css({'color':'#fff0b7','opacity': '0.5'});
+	$('span.icons2').css({'color':'#fff0b7','opacity': '0.5'});
+	questSetup();
+});
 
 $('div.answers').on('click',function(){
 	$('.selected ').removeClass('selected');
@@ -97,20 +115,34 @@ $('div.answers').on('click',function(){
 
 $('.submit-answer').on('click', function(){
 	var questSelect = $('div.selected > h2').text();
-	if(isCorrect(questSelect)){
-		$('.lightbox').css('display','block');
-		$(questResultNum +'> span:first-child').css({'color':'green',
-			'opacity': '1.0'});
-		$('.lightbox > h1').text('Correct!');
-		setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
-	}else{
-		$('.lightbox').css('display','block');
-		$(questResultNum +'> span:last-child').css({'color':'red',
-			'opacity': '1.0'});
-		$('.lightbox > h1').text('Wrong...');
-		setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
-	}
-	questId ++;
-	getResultDiv(questId);
-	questSetup();
+	
+		if(isCorrect(questSelect)){
+			answersCorrect ++;
+			$('.lightbox').css('display','block');
+			$(questResultNum +'> span:first-child').css({'color':'green',
+				'opacity': '1.0'});
+			$('.lightbox > h1').text('Correct!');
+			setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
+		}else{
+			$('.lightbox').css('display','block');
+			$(questResultNum +'> span:last-child').css({'color':'red',
+				'opacity': '1.0'});
+			$('.lightbox > h1').text('Wrong...');
+			setTimeout(function(){$('.lightbox').css('display','none');}, 2000);
+		}
+		questId ++;
+		getResultDiv(questId);
+
+		if(questId == 5){
+			$('.question > h2').text("Congrats on completing the cocktail quiz. You got " + answersCorrect +" questions correct!");
+			$('.question > h2').append('<h3 class="restart-big"><i class="fa fa-arrow-left" aria-hidden="true"></i></i>Restart Quiz</h3>')
+			$('.one > h2').text('');
+			$('.two > h2').text('');
+			$('.three > h2').text('');
+			$('.selected ').removeClass('selected');
+		}else{
+
+		questSetup();
+		}
+	
 });
